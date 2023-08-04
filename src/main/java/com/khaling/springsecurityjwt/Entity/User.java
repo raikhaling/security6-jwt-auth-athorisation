@@ -1,4 +1,4 @@
-package Entity;
+package com.khaling.springsecurityjwt.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
