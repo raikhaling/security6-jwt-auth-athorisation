@@ -2,7 +2,7 @@ package com.khaling.springsecurityjwt.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.khaling.springsecurityjwt.Entity.User;
+import com.khaling.springsecurityjwt.entity.User;
 
 @RestController
 public class UserController {

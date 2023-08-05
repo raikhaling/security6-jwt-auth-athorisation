@@ -1,7 +1,7 @@
 package com.khaling.springsecurityjwt.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.khaling.springsecurityjwt.Entity.User;
+import com.khaling.springsecurityjwt.entity.User;
 
 import java.util.Optional;
 

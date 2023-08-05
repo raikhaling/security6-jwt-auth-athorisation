@@ -1,4 +1,4 @@
-package com.khaling.springsecurityjwt.Entity;
+package com.khaling.springsecurityjwt.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,7 +19,9 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue  //by default auto
     private Integer id;
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "lastname")
     private String lastName;
     private String email;
     private String password;
