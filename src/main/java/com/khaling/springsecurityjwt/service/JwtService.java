@@ -20,6 +20,7 @@ public class JwtService {
 
     // Extracts the username (subject) from the JWT token's claims
     public String extractUsername(String token) {
+
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -28,6 +29,15 @@ public class JwtService {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+    // Extracts all claims (payload) from the JWT token
+    private Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSignKey()) //signing key to ensure who claim to be
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
 
     // Generates a JWT token for the provided UserDetails object
     public String generateToken(UserDetails userDetails) {
@@ -45,14 +55,6 @@ public class JwtService {
                 .compact();
     }
 
-    // Extracts all claims (payload) from the JWT token
-    private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSignKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-    }
 
     // Checks if the JWT token is valid for the given UserDetails
     public boolean isTokenValid(String token, UserDetails userDetails) {

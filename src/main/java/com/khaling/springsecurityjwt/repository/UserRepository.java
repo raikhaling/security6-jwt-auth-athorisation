@@ -6,5 +6,7 @@ import com.khaling.springsecurityjwt.entity.User;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User,Integer> {
+    //When you call the findByEmail method with an email parameter,
+    // Spring Data JPA will create and execute a query to retrieve the user with the specified email.
     Optional<User> findByEmail(String email);
 }

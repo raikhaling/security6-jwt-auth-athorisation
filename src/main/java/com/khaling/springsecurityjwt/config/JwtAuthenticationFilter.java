@@ -30,20 +30,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
-        final String jwtToken;
+        final String jwt;
         final String userEmail;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response); //passes to next filter chain
-            return;
+            return; //dont want to continue the rest
         }
-        jwtToken = authHeader.substring(7); //bearer space
-        userEmail = jwtService.extractUsername(jwtToken);//todo extract the useEmail from jWT token;
+        jwt = authHeader.substring(7); //bearer space
+        userEmail = jwtService.extractUsername(jwt);
         // if we have useremail and is not authenticate
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             //get user from the database
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-            if (jwtService.isTokenValid(jwtToken, userDetails)) { //check if user is valid or not
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+            if (jwtService.isTokenValid(jwt, userDetails)) { //check if user is valid or not
+                UsernamePasswordAuthenticationToken authToken = //needed by spring context holder in order to update
+                        new UsernamePasswordAuthenticationToken( // security contex
                         userDetails,
                         null,
                         userDetails.getAuthorities()
